@@ -4,6 +4,7 @@ Jogo desenvolvido em C na cadeira de programação imperativa e funcional, que u
 # 🙋🏻‍♂️ Autores
 <br>
 Criadores do projeto: 
+<br>
 <strong>Davi Mendes</strong> @DavidaMendes <br>
 <strong>Gabriel Rodrigues</strong> @brittola <br>
 <strong>Emanuel Henry</strong> @henryzera

@@ -14,10 +14,12 @@ Criadores do projeto:
 <h3>@CESAR School</h3>
 <br>
 
-# ⬛ Nome do Projeto
+# 🐍 Snake Game
 <br>
-<p align="center">Em andamento</p>
+<p align="center">O jogo é igual ao clássico jogo da cobrinha, você controla a cobrinha pelo "WSD" e tem que pegar as letras F para poder crescer. Se bater nas paredes perde e reinicia o jogo</p>
 
-# ⬜ Como Funciona
-<br>
-<p align="center">Em andamento</p>
+# ▶️ Como Jogar
+<p>Primeiro tem que dar o comando: </p>
+<strong>gcc ./src/*.c -I./include -o nome-do-arquivo</strong>
+<p>Uma vez criado o arquivo, é necessário dar run: </p>
+<strong>./nome-do-arquivo</strong>

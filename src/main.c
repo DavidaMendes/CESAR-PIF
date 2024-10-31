@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
@@ -97,36 +96,25 @@ void change_direction(int ch) {
     if (ch == 'd' && snake.direction != 'L') snake.direction = 'R';
 }
 
-int main() 
-{
-    static int ch = 0;
+int main() {
+    int ch = 0;
 
     screenInit(1);
     keyboardInit();
-    timerInit(50);
+    timerInit(100);
 
-    printHello(x, y);
-    screenUpdate();
+    init_game();
+    draw_game();
 
-    while (ch != 10) { // 10 é o código do Enter
+    while (ch != 10) { 
         if (keyhit()) {
             ch = readch();
-            printKey(ch);
-            screenUpdate();
+            change_direction(ch);
         }
 
-        // Update game state (move elements, verify collision, etc)
-        if (timerTimeOver() == 1)
-        {
-            int newX = x + incX;
-            if (newX >= (MAXX -strlen("Hello World") -1) || newX <= MINX+1) incX = -incX;
-            int newY = y + incY;
-            if (newY >= MAXY-1 || newY <= MINY+1) incY = -incY;
-
-            printKey(ch);
-            printHello(newX, newY);
-
-            screenUpdate();
+        if (timerTimeOver() == 1) {
+            update_snake();
+            draw_game();
         }
     }
 

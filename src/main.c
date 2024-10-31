@@ -1,9 +1,3 @@
-/**
- * snake_game.c
- * Author: Tiago Barros
- * Based on "From C to C++ course - 2002"
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -29,8 +23,8 @@ typedef struct {
     Point food;
 } Game;
 
-int x = 0, y = 0;  // posição inicial da cobra
-int incX = 1, incY = 0;  // direção inicial
+int x = 0, y = 0;
+int incX = 1, incY = 0;
 Snake snake;
 Game game;
 
@@ -47,7 +41,6 @@ void init_game() {
 
 void draw_game() {
     screenClear();
-    // Desenhar bordas
     for (int i = 0; i < WIDTH + 2; i++) printf("#");
     printf("\n");
 
@@ -84,13 +77,11 @@ void update_snake() {
         case 'R': new_head.x++; break;
     }
 
-    // Atualizar o corpo da cobra
     for (int i = snake.length - 1; i > 0; i--) {
         snake.body[i] = snake.body[i - 1];
     }
     snake.body[0] = new_head;
 
-    // Verificar se comeu a comida
     if (new_head.x == game.food.x && new_head.y == game.food.y) {
         snake.length++;
         game.food.x = rand() % WIDTH;
@@ -115,7 +106,7 @@ int main() {
     init_game();
     draw_game();
 
-    while (ch != 10) { // 10 é o código do Enter
+    while (ch != 10) { 
         if (keyhit()) {
             ch = readch();
             change_direction(ch);

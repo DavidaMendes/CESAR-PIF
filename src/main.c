@@ -5,9 +5,10 @@
 #include "keyboard.h"
 #include "timer.h"
 
-#define WIDTH 20
-#define HEIGHT 10
+#define WIDTH 40
+#define HEIGHT 20
 #define INITIAL_LENGTH 3
+#define HIGHSCORE_FILE "highscore.txt"
 
 typedef struct {
     int x, y;
@@ -27,10 +28,13 @@ int x = 0, y = 0;
 int incX = 1, incY = 0;
 Snake snake;
 Game game;
+int recorde = 0;
+int pontuacao_atual = 0;
 
 void init_game() {
     snake.length = INITIAL_LENGTH;
     snake.direction = 'R';
+    pontuacao_atual = 0;
     for (int i = 0; i < INITIAL_LENGTH; i++) {
         snake.body[i].x = INITIAL_LENGTH - i - 1;
         snake.body[i].y = 0;
@@ -41,7 +45,7 @@ void init_game() {
 
 void draw_game() {
     screenClear();
-    for (int i = 0; i < WIDTH + 2; i++) printf("#");
+    for (int i = 0; i < WIDTH + 2; i++) printf("\033[41m#\033[0m");
     printf("\n");
 
     for (int y = 0; y < HEIGHT; y++) {
@@ -54,9 +58,9 @@ void draw_game() {
                 }
             }
             if (is_snake) {
-                printf("O");
+                printf("\033[42mO\033[0m");
             } else if (game.food.x == x && game.food.y == y) {
-                printf("F");
+                printf("\033[43mÓ\033[0m");
             } else {
                 printf(" ");
             }
@@ -64,8 +68,9 @@ void draw_game() {
         printf("\n");
     }
 
-    for (int i = 0; i < WIDTH + 2; i++) printf("#");
+    for (int i = 0; i < WIDTH + 2; i++) printf("\033[41m#\033[0m");
     printf("\n");
+    printf("Pontuação: %d   Recorde: %d\n", pontuacao_atual, recorde);
 }
 
 void update_snake() {
@@ -84,6 +89,7 @@ void update_snake() {
 
     if (new_head.x == game.food.x && new_head.y == game.food.y) {
         snake.length++;
+        pontuacao_atual++;
         game.food.x = rand() % WIDTH;
         game.food.y = rand() % HEIGHT;
     }
@@ -96,6 +102,25 @@ void change_direction(int ch) {
     if (ch == 'd' && snake.direction != 'L') snake.direction = 'R';
 }
 
+void load_highscore() {
+    FILE *file = fopen(HIGHSCORE_FILE, "r");
+    if (file) {
+        fscanf(file, "%d", &recorde);
+        fclose(file);
+    }
+}
+
+void save_highscore() {
+    if (pontuacao_atual > recorde) {
+        recorde = pontuacao_atual;
+        FILE *file = fopen(HIGHSCORE_FILE, "w");
+        if (file) {
+            fprintf(file, "%d", recorde);
+            fclose(file);
+        }
+    }
+}
+
 int main() {
     int ch = 0;
 
@@ -103,6 +128,7 @@ int main() {
     keyboardInit();
     timerInit(100);
 
+    load_highscore();
     init_game();
     draw_game();
 
@@ -117,6 +143,8 @@ int main() {
             draw_game();
         }
     }
+
+    save_highscore();
 
     keyboardDestroy();
     screenDestroy();

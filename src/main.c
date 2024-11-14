@@ -95,6 +95,22 @@ void update_snake() {
     }
 }
 
+int check_collision() {
+    Point head = snake.body[0];
+    
+    for (int i = 1; i < snake.length; i++) {
+        if (snake.body[i].x == head.x && snake.body[i].y == head.y) {
+            return 1;
+        }
+    }
+    
+    if (head.x < 0 || head.x >= WIDTH || head.y < 0 || head.y >= HEIGHT) {
+        return 1;
+    }
+    
+    return 0;
+}
+
 void change_direction(int ch) {
     if (ch == 'w' && snake.direction != 'D') snake.direction = 'U';
     if (ch == 's' && snake.direction != 'U') snake.direction = 'D';
@@ -132,7 +148,7 @@ int main() {
     init_game();
     draw_game();
 
-    while (ch != 10) { 
+    while (ch != 10) {
         if (keyhit()) {
             ch = readch();
             change_direction(ch);
@@ -140,6 +156,12 @@ int main() {
 
         if (timerTimeOver() == 1) {
             update_snake();
+
+            if (check_collision()) {
+                printf("Game Over! A cobra se colidiu com ela mesma.\n");
+                break;
+            }
+
             draw_game();
         }
     }

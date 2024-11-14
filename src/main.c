@@ -28,6 +28,7 @@ int main() {
 
             if (check_collision()) {
                 printf("Game Over! A cobra colidiu.\n");
+				getchar();
                 break;
             }
 

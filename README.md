@@ -19,7 +19,4 @@ Criadores do projeto:
 <p align="center">O jogo é igual ao clássico jogo da cobrinha, você controla a cobrinha pelo "WSD" e tem que pegar as letras F para poder crescer. Se bater nas paredes perde e reinicia o jogo</p>
 
 # ▶️ Como Jogar
-<p>Primeiro tem que dar o comando: </p>
-<strong>gcc ./src/*.c -I./include -o nome-do-arquivo</strong>
-<p>Uma vez criado o arquivo, é necessário dar run: </p>
-<strong>./nome-do-arquivo</strong>
+<p>Basta digitar no terminal o comando: <strong>./jogar</strong></p>

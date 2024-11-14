@@ -27,7 +27,9 @@ int main() {
             update_snake();
 
             if (check_collision()) {
+				screenClear();
                 printf("Game Over! A cobra colidiu.\n");
+				printf("Pressione qualquer tecla para sair.\n");
 				getchar();
                 break;
             }

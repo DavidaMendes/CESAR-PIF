@@ -27,7 +27,7 @@ int main() {
             update_snake();
 
             if (check_collision()) {
-                printf("Game Over! A cobra se colidiu com ela mesma.\n");
+                printf("Game Over! A cobra colidiu.\n");
                 break;
             }
 
